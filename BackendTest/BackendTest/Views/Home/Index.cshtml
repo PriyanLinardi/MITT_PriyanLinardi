@@ -1,0 +1,111 @@
+﻿@*<div class="jumbotron">
+        <h1>ASP.NET</h1>
+        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
+        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
+            a broad range of clients, including browsers and mobile devices. ASP.NET Web API
+            is an ideal platform for building RESTful applications on the .NET Framework.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Get more libraries</h2>
+            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Web Hosting</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+        </div>
+    </div>*@
+
+<script>
+    function DoLogin() {
+        var userName = $("#txtUserName").val();
+        var password = $("#txtPassword").val();
+        $.post("@(Url.Action("Login", "Home"))", { userName: userName, password: password },
+            function (data) {
+                if (data.success) {
+                    $("#lblErr").html('');
+                    window.location.href = "Home/Dashboard";
+                }
+                else {
+                    $("#lblErr").html(data.err);
+                }
+         }); 
+    }
+</script>
+
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5 parent">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                     class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form style="padding-top:120px;">
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example3">Username</label>
+                        <input type="text" id="txtUserName" class="form-control form-control-lg"
+                               placeholder="Enter a valid username" />
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="form3Example4">Password</label>
+                        <input type="password" id="txtPassword" class="form-control form-control-lg"
+                               placeholder="Enter password" />
+                    </div>
+
+                    @*Error message*@
+                    <div class="form-outline mb-3" style="padding-top:5px;">
+                        <label class="form-label" id="lblErr" style="color:red;"></label>
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2" style="padding-top:10px;">
+                        <button type="button" class="btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;" onclick="DoLogin()">
+                            Login
+                        </button>
+                        <p class="small fw-bold mt-2 pt-1 mb-0" style="padding-top:10px;">
+                            Don't have an account? <a href="#!"
+                                                      class="link-danger">Register</a>
+                        </p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .divider:after,
+    .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+    }
+
+    .h-custom {
+        height: calc(100% - 73px);
+    }
+
+    .parent {
+        width: 550px; /* I took the width from your post and placed it in css */
+        height: 400px;
+    }
+
+    .parent img {
+        height: 100%;
+        width: 100%;
+    }
+</style>
+
